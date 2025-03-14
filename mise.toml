@@ -1,0 +1,17 @@
+
+
+[tools]
+# Specify Ruby version
+ruby = "3.4.1"
+
+# Install Jekyll and Bundler via Ruby Gems
+[env]
+GEM_HOME = "./.gems"
+GEM_PATH = "./.gems"
+
+[tasks.build]
+# Install Jekyll and Bundler after setting up Ruby
+run = "gem install jekyll bundler"
+
+# # Run mise run build
+
