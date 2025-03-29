@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #231f20;
+    scroll-behavior: smooth;
+  }
+
+  /* Metro line colors */
+  /* Shared base for all station sections */
+  .station-section {
+    padding: 6rem 2rem;
+    background: white;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-left: 6px solid transparent;
+    transition: all 0.3s ease;
+  }
+  
+  /* Apply color to h2 and border-left */
+  .station-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Line color modifiers */
+  .red h2 { color: #be1337; }
+  .orange h2 { color: #da8707; }
+  .blue h2 { color: #0076a8; }
+  .silver h2 { color: #a2a4a1; }
+  .green h2 { color: #00b050; }
+  .yellow h2 { color:  #f5d415}
+  
+  .red { border-left-color: #be1337; }
+  .orange { border-left-color: #da8707; }
+  .blue { border-left-color: #0076a8; }
+  .silver { border-left-color: #a2a4a1; }
+  .green { border-left-color: #00b050; }
+  .yellow { border-left-color:  #f5d415}
+  
+  /* Parallax effect sections */
+  .parallax {
+    height: 60vh;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  /* Responsive fallback for mobile (background-attachment: fixed doesn't work on some devices) */
+  @media (max-width: 768px) {
+    .parallax {
+      background-attachment: scroll;
+      height: 40vh;
+    }
+  }
