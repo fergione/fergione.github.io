@@ -1,4 +1,8 @@
-body {
+  /* 
+  CSS Styling for Metro Rail Resume 
+  */
+  
+  body {
     margin: 0;
     font-family: 'Helvetica Neue', sans-serif;
     color: #231f20;
@@ -71,3 +75,109 @@ body {
     background-color: #f0f4f8;
     border-radius: 6px;
   }
+
+/*  Section for Resume - Metro Stops    */
+/* Outer container */
+.metro-map-vertical {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 1rem;
+  background-color: #f1f1f1;
+}
+
+/* Line column: holds all stop rows */
+.metro-line-vertical {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10rem; /* This val controls the distance between stops*/
+  padding-left: 40px;
+  padding-top: 4rem
+}
+
+/* Draw vertical line behind stop balls only */
+.metro-line-vertical::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50px; /* centers behind the stop balls (see note below) */
+  width: 12px;
+  background-color: #888;
+  z-index: 0;
+  border-radius: 3px;
+}
+
+/* Each stop + its info */
+.metro-stop-row {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+/* Stop ball */
+.metro-stop {
+  width: 24px;
+  height: 24px;
+  background-color: #888;
+  border: 4px solid white;
+  border-radius: 50%;
+  z-index: 1;
+  flex-shrink: 0;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.4s ease;
+}
+
+/* Animate in */
+.metro-stop.active {
+  background-color: inherit;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* Detail box */
+.metro-details {
+  margin-left: 2rem;
+  background-color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  max-width: 400px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+}
+
+.metro-stop.active + .metro-details {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Colors */
+.red-line::before,
+.red-line .metro-stop.active { background-color: #e21836; }
+
+.blue-line::before,
+.blue-line .metro-stop.active { background-color: #007ac2; }
+
+.orange-line::before,
+.orange-line .metro-stop.active { background-color: #f57c00; }
+
+.green-line::before,
+.green-line .metro-stop.active { background-color: #00a651; }
+
+.yellow-line::before,
+.yellow-line .metro-stop.active { background-color: #ffd200; }
+
+.metro-details h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #e21836;
+}
+
+.metro-details p {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #333;
+}
