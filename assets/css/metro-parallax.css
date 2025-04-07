@@ -184,6 +184,16 @@
   border: 3px solid white;
   border-radius: 50%;
   z-index: 1;
+  flex-shrink: 0;
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Animate in */
+.metro-stop.active {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .metro-details-mobile {
@@ -191,7 +201,14 @@
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  margin-top: 0.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.metro-details.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Show/hide based on screen size */
@@ -277,3 +294,5 @@
   font-size: 0.95rem;
   color: #333;
 }
+
+/* Remove the keyframes as they're no longer needed */

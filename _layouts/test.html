@@ -1,5 +1,8 @@
 
 <body class="{{ page.class }}"></body>
+<div class="metro-credit">
+    Webpage by Michael Fergione
+</div>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
@@ -77,6 +80,160 @@
             padding: 15px;
             font-size: clamp(14px, 2.5vw, 16px);
         }
+
+        .metro-credit {
+            background-color: #231f20;
+            color: #bbbbbb;
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .metro-footer {
+            background-color: #231f20;
+            color: #ffffff;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .metro-footer-credit {
+            color: #bbbbbb;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .metro-footer-divider {
+            width: 50%;
+            margin: 1rem auto;
+            border: none;
+            border-top: 1px solid rgba(187, 187, 187, 0.3);
+        }
+
+        .metro-footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .metro-footer a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .metro-footer a:hover {
+            color: #bbbbbb;
+        }
+
+        .metro-footer a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #bbbbbb;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .metro-footer a:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Contact popup styles */
+        .contact-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .contact-popup h3 {
+            color: #231f20;
+            margin-bottom: 1rem;
+        }
+
+        .contact-popup form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-popup input,
+        .contact-popup textarea {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        .contact-popup textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .contact-popup button {
+            background: #231f20;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-popup button:hover {
+            background: #3a3536;
+        }
+
+        .contact-popup .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #231f20;
+        }
+
+        .popup-note {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .metro-footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
     </style>
 </head>
 
@@ -102,18 +259,27 @@
           const stop = entry.target.querySelector('.metro-stop');
           const details = entry.target.querySelector('.metro-details');
           
+          // Add active class immediately when in view
           stop.classList.add('active');
           if (details) {
             details.classList.add('active');
           }
+        } else {
+          // Remove active class immediately when out of view
+          const stop = entry.target.querySelector('.metro-stop');
+          const details = entry.target.querySelector('.metro-details');
+          
+          stop.classList.remove('active');
+          if (details) {
+            details.classList.remove('active');
+          }
         }
       });
     }, {
-      threshold: 0.2, // Trigger when 20% of the element is visible
-      rootMargin: '0px 0px -10% 0px' // Slightly adjust the trigger area
+      threshold: 1.0, // Only trigger when element is fully in view
+      rootMargin: '0px' // No margin adjustment
     });
 
-    // Observe each stop-row instead of the entire map
     metroMaps.forEach(map => {
       const stopRows = map.querySelectorAll('.metro-stop-row');
       stopRows.forEach(row => observer.observe(row));
@@ -122,14 +288,68 @@
 
   // Initialize on load
   document.addEventListener('DOMContentLoaded', animateMetroStopsWithProgress);
-  
-  // Reset animations on page refresh
-  window.addEventListener('beforeunload', () => {
-    document.querySelectorAll('.metro-stop, .metro-details').forEach(el => {
-      el.classList.remove('active');
-    });
-  });
-</script>
-  
+</script>  
 
 {{ content }}
+
+<!-- Contact Popup -->
+<div class="popup-overlay" id="overlay"></div>
+<div class="contact-popup" id="contactPopup">
+    <button class="close-btn" onclick="closeContactPopup()">&times;</button>
+    <h3>Send a Message</h3>
+    <form id="contactForm" onsubmit="submitContactForm(event)">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+    <p class="popup-note">Your message will be sent to michael@fergione.com</p>
+</div>
+
+<!-- Updated Footer -->
+<footer class="metro-footer">
+    <div class="metro-footer-credit">
+        Webpage by Michael Fergione
+    </div>
+    <hr class="metro-footer-divider">
+    <div class="metro-footer-links">
+        <a href="/">Home</a>
+        <a onclick="openContactPopup()">Contact</a>
+    </div>
+</footer>
+
+<!-- Add this script before closing body tag -->
+<script>
+    function openContactPopup() {
+        document.getElementById('contactPopup').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    function closeContactPopup() {
+        document.getElementById('contactPopup').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    function submitContactForm(event) {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.querySelector('input[type="text"]').value;
+        const email = form.querySelector('input[type="email"]').value;
+        const message = form.querySelector('textarea').value;
+        
+        // Construct mailto URL with form data
+        const mailtoUrl = `mailto:michael@fergione.com?subject=Contact from ${name}&body=${encodeURIComponent(message)}\n\nFrom: ${email}`;
+        
+        // Open default email client
+        window.location.href = mailtoUrl;
+        
+        // Close popup
+        closeContactPopup();
+        
+        // Reset form
+        form.reset();
+    }
+
+    // Close popup when clicking overlay
+    document.getElementById('overlay').addEventListener('click', closeContactPopup);
+</script>

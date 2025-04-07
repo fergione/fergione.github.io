@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }}</title>
+    <style>
+        /* Loading Screen */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 1s ease-out;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Main Content */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1s ease-in;
+            background: #000; /* Fallback color */
+        }
+
+        .video-background video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Link Blocks Container */
+        .blocks-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            margin-top: 100px;
+        }
+
+        /* Individual Link Blocks */
+        .link-block {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            color: white;
+            text-decoration: none;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+        }
+
+        .link-block:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .link-block h2 {
+            margin: 0 0 1rem 0;
+            font-size: 1.5rem;
+        }
+
+        .link-block p {
+            margin: 0;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 1 !important;
+        }
+
+        .slide-up {
+            transform: translateY(0) !important;
+            opacity: 1 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline preload="auto">
+            <source src="{{ '/assets/videos/background_wo.mp4' | relative_url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Link Blocks -->
+    <div class="blocks-container">
+        <a href="/iresume" class="link-block">
+            <h2>Interactive Resume</h2>
+            <p>Explore my career journey through an interactive metro map experience</p>
+        </a>
+        <a href="/projects" class="link-block">
+            <h2>Projects</h2>
+            <p>Discover the various projects I've worked on</p>
+        </a>
+        <a href="/blog" class="link-block">
+            <h2>Blog</h2>
+            <p>Read my thoughts on technology and development</p>
+        </a>
+        <a href="#" class="link-block" onclick="openContactPopup(); return false;">
+            <h2>Contact</h2>
+            <p>Get in touch with me</p>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.querySelector('video');
+            const videoBackground = document.querySelector('.video-background');
+            const loader = document.querySelector('.loader-wrapper');
+            const blocks = document.querySelectorAll('.link-block');
+
+            // Add error handling for video
+            video.addEventListener('error', (e) => {
+                console.error('Error loading video:', e);
+                console.error('Video error details:', video.error);
+                // Start animations anyway if video fails
+                startAnimations();
+            });
+
+            // Log video loading status
+            video.addEventListener('loadeddata', () => {
+                console.log('Video loaded successfully');
+            });
+
+            // Function to start animations
+            function startAnimations() {
+                // Fade out loader
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 1000);
+
+                // Ensure video is visible and playing
+                video.style.display = 'block';
+                videoBackground.classList.add('fade-in');
+                video.play().catch(e => console.error('Error playing video:', e));
+
+                // Animate blocks with delay
+                blocks.forEach((block, index) => {
+                    setTimeout(() => {
+                        block.classList.add('slide-up');
+                    }, 1000 + (index * 200));
+                });
+            }
+
+            // Start animations when video is ready
+            if (video.readyState >= 3) {
+                console.log('Video ready state:', video.readyState);
+                startAnimations();
+            } else {
+                video.addEventListener('canplay', () => {
+                    console.log('Video can play');
+                    startAnimations();
+                });
+            }
+
+            // Fallback if video takes too long
+            setTimeout(() => {
+                if (!videoBackground.classList.contains('fade-in')) {
+                    console.log('Fallback timeout triggered');
+                    startAnimations();
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
