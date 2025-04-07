@@ -6,10 +6,11 @@ class: iresume
 ---
 
 
-    <header class="metro-header">
-        Metro Map Resume  
-        <div class="metro-subhead">Exploring my career, one station at a time.</div>
-    </header>
+
+  <header class="metro-header">
+    Metro Map Resume  
+    <div class="metro-subhead">Exploring my career, one station at a time.</div>
+  </header>
       
 
   <!-- Station 1 -->
@@ -26,21 +27,16 @@ class: iresume
   <section class="metro-map-vertical">
     <div class="metro-line-vertical red-line">
 
+      {% for stop in site.data.resume-exp-stations %}
       <div class="metro-stop-row">
         <div class="metro-stop"></div>
         <div class="metro-details">
-          <h3>Shady Grove</h3>
-          <p>Started my journey in transportation and logistics.</p>
+          <h3>{{ stop.company }}</h3>
+          <h4>{{ stop.title }}</h4>
+          <p> {{ stop.description }} </p>
         </div>
       </div>
-
-      <div class="metro-stop-row">
-        <div class="metro-stop"></div>
-        <div class="metro-details">
-          <h3>Rockville</h3>
-          <p>Led cross-functional projects in early career development.</p>
-        </div>
-      </div>
+      {% endfor %}
 
     </div>
   </section>
@@ -57,7 +53,22 @@ class: iresume
   </section>
 
   <!-- Parallax -->
-  <section class="parallax" style="background-image: url('/assets/images/metro-map-bg.jpg');"></section>
+  <section class="metro-map-vertical">
+    <div class="metro-line-vertical blue-line">
+
+        {% for stop in site.data.resume-edu-stations %}
+        <div class="metro-stop-row">
+          <div class="metro-stop"></div>
+          <div class="metro-details">
+            <h3>{{ stop.level }}</h3>
+            <h4>{{ stop.degree }}</h4>
+            <p> {{ stop.uni }} </p>
+          </div>
+        </div>
+        {% endfor %}
+
+    </div>
+  </section>
 
   <!-- Station 3 -->
   <section class="resume-section station-section orange" id="skills">
@@ -83,7 +94,22 @@ class: iresume
   </section>
 
   <!-- Final Parallax -->
-  <section class="parallax" style="background-image: url('/assets/images/metro-fadeout.jpg');"></section>
+  <section class="metro-map-vertical">
+    <div class="metro-line-vertical blue-line">
+
+        {% for stop in site.data.resume-projects-stations %}
+        <div class="metro-stop-row">
+          <div class="metro-stop"></div>
+          <div class="metro-details">
+            <h3>{{ stop.project }}</h3>
+            <h4>{{ stop.skills }}</h4>
+            <p> {{ stop.description }} </p>
+          </div>
+        </div>
+        {% endfor %}
+
+    </div>
+  </section>
 
   <!-- Final Station -->
   <section class="resume-section station-section yellow" id="contact">

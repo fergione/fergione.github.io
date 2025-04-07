@@ -90,7 +90,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10rem; /* This val controls the distance between stops*/
+  gap: 5rem; /* This val controls the distance between stops*/
   padding-left: 40px;
   padding-top: 4rem
 }
