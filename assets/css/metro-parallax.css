@@ -2,9 +2,11 @@
   CSS Styling for Metro Rail Resume 
   */
   
+  /* Base container styles */
   html, body {
     overflow-x: hidden;
     width: 100%;
+    max-width: 100%;
     margin: 0;
     padding: 0;
   }
@@ -16,15 +18,27 @@
     scroll-behavior: smooth;
   }
 
+  /* Header styles */
+  .metro-header {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    box-sizing: border-box;
+  }
+
   /* Metro line colors */
   /* Shared base for all station sections */
   .station-section {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
     padding: 6rem 2rem;
     background: white;
     text-align: center;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     border-left: 6px solid transparent;
     transition: all 0.3s ease;
+    box-sizing: border-box;
   }
   
   /* Apply color to h2 and border-left */
@@ -51,11 +65,15 @@
   
   /* Parallax effect sections */
   .parallax {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
     height: 60vh;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    box-sizing: border-box;
   }
   
   /* Responsive fallback for mobile (background-attachment: fixed doesn't work on some devices) */
@@ -63,6 +81,14 @@
     .parallax {
       background-attachment: scroll;
       height: 40vh;
+    }
+
+    /* Ensure content stays within viewport */
+    .metro-line-mobile,
+    .metro-details-mobile {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
   }
 
@@ -87,12 +113,12 @@
 /*  Section for Resume - Metro Stops    */
 /* Desktop version */
 .metro-map-vertical {
-  display: flex;
-  justify-content: flex-start;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
   padding: 4rem 2rem;
   background-color: #f1f1f1;
-  max-width: 1200px;
-  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .metro-line-vertical {
