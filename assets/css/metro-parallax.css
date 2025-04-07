@@ -26,6 +26,7 @@
     margin-bottom: 1rem;
   }
   
+  
   /* Line color modifiers */
   .red h2 { color: #be1337; }
   .orange h2 { color: #da8707; }
@@ -81,8 +82,10 @@
 .metro-map-vertical {
   display: flex;
   justify-content: center;
-  padding: 4rem 1rem;
+  padding: 4rem 2rem;
   background-color: #f1f1f1;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* Line column: holds all stop rows */
@@ -90,9 +93,10 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 5rem; /* This val controls the distance between stops*/
-  padding-left: 40px;
-  padding-top: 4rem
+  gap: 5rem;
+  padding-left: 90px; /* gives more breathing room on desktop */
+  padding-top: 4rem;
+  width: 100%;
 }
 
 /* Draw vertical line behind stop balls only */
@@ -101,7 +105,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 50px; /* centers behind the stop balls (see note below) */
+  left: 100px; /* centers behind the stop balls (see note below) */
   width: 12px;
   background-color: #888;
   z-index: 0;
@@ -143,7 +147,7 @@
   padding: 1rem 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  max-width: 400px;
+  max-width: 800px;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.4s ease;
