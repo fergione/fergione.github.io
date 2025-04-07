@@ -78,17 +78,16 @@
   }
 
 /*  Section for Resume - Metro Stops    */
-/* Outer container */
+/* Desktop version */
 .metro-map-vertical {
   display: flex;
-  justify-content: flex-start; /* Changed from center to flex-start */
+  justify-content: flex-start;
   padding: 4rem 2rem;
   background-color: #f1f1f1;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Line column: holds all stop rows */
 .metro-line-vertical {
   position: relative;
   display: flex;
@@ -98,7 +97,6 @@
   width: 100%;
 }
 
-/* Draw vertical line behind stop balls */
 .metro-line-vertical::before {
   content: "";
   position: absolute;
@@ -111,89 +109,95 @@
   border-radius: 3px;
 }
 
-/* Each stop + its info */
-.metro-stop-row {
-  display: flex;
-  align-items: flex-start;
-  position: relative;
-  width: 100%;
-  padding: 0 20px;
-  gap: 2rem;
+/* Mobile version */
+.metro-map-mobile {
+  display: none; /* Hidden by default */
+  background-color: #f1f1f1;
+  padding: 2rem 1rem;
+  margin: 0 auto;
 }
 
-/* Stop ball */
-.metro-stop {
-  width: 24px;
-  height: 24px;
+.metro-line-mobile {
+  position: relative;
+  padding-left: 40px; /* Space for the line */
+}
+
+.metro-line-mobile::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 20px;
+  width: 8px;
   background-color: #888;
-  border: 4px solid white;
+  z-index: 0;
+  border-radius: 4px;
+}
+
+.metro-stop-mobile {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-left: 20px;
+}
+
+.metro-stop-dot-mobile {
+  position: absolute;
+  left: -16px; /* Align with line */
+  width: 20px;
+  height: 20px;
+  background-color: #888;
+  border: 3px solid white;
   border-radius: 50%;
   z-index: 1;
-  flex-shrink: 0;
-  opacity: 0;
-  transform: scale(0.5);
-  transition: opacity 0.6s ease, transform 0.6s ease, background-color 0.6s ease;
 }
 
-/* Animate in */
-.metro-stop.active {
-  opacity: 1;
-  transform: scale(1);
-  background-color: inherit;
-}
-
-/* Detail box */
-.metro-details {
-  flex: 1;
+.metro-details-mobile {
   background-color: white;
-  padding: 1rem 1.5rem;
+  padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-top: 0.5rem;
+}
+
+/* Show/hide based on screen size */
+@media (max-width: 768px) {
+  .metro-map-vertical {
+    display: none; /* Hide desktop version */
+  }
+  
+  .metro-map-mobile {
+    display: block; /* Show mobile version */
+  }
+}
+
+/* Line colors for mobile */
+.red-line-mobile .metro-stop-dot-mobile { background-color: #e21836; }
+.blue-line-mobile .metro-stop-dot-mobile { background-color: #007ac2; }
+.orange-line-mobile .metro-stop-dot-mobile { background-color: #f57c00; }
+.green-line-mobile .metro-stop-dot-mobile { background-color: #00a651; }
+.yellow-line-mobile .metro-stop-dot-mobile { background-color: #ffd200; }
+
+/* Animation classes for mobile */
+.metro-stop-dot-mobile {
   opacity: 0;
-  transform: translateX(-20px);
+  transform: scale(0.5);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.metro-details-mobile {
+  opacity: 0;
+  transform: translateY(20px);
   transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
 }
 
-.metro-details.active {
+.metro-stop-dot-mobile.active {
   opacity: 1;
-  transform: translateX(0);
+  transform: scale(1);
 }
 
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  .metro-map-vertical {
-    padding: 4rem 0; /* Reduce padding on mobile */
-  }
-
-  .metro-line-vertical {
-    gap: 3rem;
-  }
-
-  .metro-line-vertical::before {
-    left: 32px; /* Keep line aligned with dots */
-  }
-
-  .metro-stop-row {
-    flex-direction: column;
-    padding: 0;
-    margin-left: 20px; /* Add margin instead of padding */
-  }
-
-  .metro-stop {
-    margin-left: 0; /* Reset margin */
-    position: relative; /* Change from absolute to relative */
-    left: 0; /* Reset left position */
-  }
-
-  .metro-details {
-    width: calc(100% - 76px); /* Adjust width to account for line and spacing */
-    margin-left: 44px; /* Move details right to align with line */
-    transform: translateY(20px); /* Change animation direction for mobile */
-  }
-
-  .metro-details.active {
-    transform: translateY(0);
-  }
+.metro-details-mobile.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Colors */
