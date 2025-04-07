@@ -89,6 +89,7 @@
 }
 
 /* Line column: holds all stop rows */
+
 .metro-line-vertical {
   position: relative;
   display: flex;
@@ -110,6 +111,7 @@
   background-color: #888;
   z-index: 0;
   border-radius: 3px;
+  
 }
 
 /* Each stop + its info */
@@ -157,6 +159,7 @@
   opacity: 1;
   transform: translateY(0);
 }
+
 
 /* Colors */
 .red-line::before,
