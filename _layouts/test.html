@@ -99,52 +99,35 @@
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const stopRows = entry.target.querySelectorAll('.metro-stop-row');
-          stopRows.forEach((row, index) => {
-            const stop = row.querySelector('.metro-stop');
-            const details = row.querySelector('.metro-details');
-            
-            // Reset animations if needed
-            stop.classList.remove('active');
-            if (details) {
-              details.style.opacity = '0';
-              details.style.transform = 'translateY(20px)';
-            }
-            
-            // Trigger animations with delay
-            setTimeout(() => {
-              stop.classList.add('active');
-              if (details) {
-                details.style.opacity = '1';
-                details.style.transform = 'translateY(0)';
-              }
-            }, index * 200);
-          });
+          const stop = entry.target.querySelector('.metro-stop');
+          const details = entry.target.querySelector('.metro-details');
+          
+          stop.classList.add('active');
+          if (details) {
+            details.classList.add('active');
+          }
         }
       });
     }, {
-      threshold: 0.1, // Trigger earlier
-      rootMargin: '50px 0px -10% 0px' // Adjust trigger area
+      threshold: 0.2, // Trigger when 20% of the element is visible
+      rootMargin: '0px 0px -10% 0px' // Slightly adjust the trigger area
     });
 
-    metroMaps.forEach(map => observer.observe(map));
+    // Observe each stop-row instead of the entire map
+    metroMaps.forEach(map => {
+      const stopRows = map.querySelectorAll('.metro-stop-row');
+      stopRows.forEach(row => observer.observe(row));
+    });
   }
 
-  // Initialize on load and handle resize events
-  window.addEventListener('load', animateMetroStopsWithProgress);
+  // Initialize on load
+  document.addEventListener('DOMContentLoaded', animateMetroStopsWithProgress);
   
-  // Debounced resize handler
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      // Remove all active classes
-      document.querySelectorAll('.metro-stop').forEach(stop => {
-        stop.classList.remove('active');
-      });
-      // Reinitialize animations
-      animateMetroStopsWithProgress();
-    }, 250);
+  // Reset animations on page refresh
+  window.addEventListener('beforeunload', () => {
+    document.querySelectorAll('.metro-stop, .metro-details').forEach(el => {
+      el.classList.remove('active');
+    });
   });
 </script>
   
