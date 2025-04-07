@@ -104,7 +104,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 20px; /* Align with stop dots (24px width + 4px border on each side) */
+  left: 32px; /* Align with stop dots */
   width: 12px;
   background-color: #888;
   z-index: 0;
@@ -133,13 +133,13 @@
   flex-shrink: 0;
   opacity: 0;
   transform: scale(0.5);
-  transition: all 0.4s ease;
+  transition: opacity 0.6s ease, transform 0.6s ease, background-color 0.6s ease;
 }
 
 /* Animate in */
 .metro-stop.active {
   opacity: 1;
-  transform: scale(1.2);
+  transform: scale(1);
   background-color: inherit;
 }
 
@@ -151,35 +151,46 @@
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.4s ease;
+  transform: translateX(-20px);
+  transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
 }
 
-.metro-stop.active + .metro-details {
+.metro-details.active {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
-/* Responsive adjustments */
+/* Mobile adjustments */
 @media (max-width: 768px) {
   .metro-line-vertical {
     gap: 3rem;
   }
 
   .metro-line-vertical::before {
-    left: 50%; /* Center line on mobile */
-    transform: translateX(-50%);
+    left: 32px; /* Keep same alignment as desktop */
+    transform: none; /* Remove centering transform */
   }
 
   .metro-stop-row {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start; /* Align items to the left */
+    text-align: left;
     gap: 1rem;
+    padding-left: 52px; /* Add padding to account for line and stop */
   }
 
   .metro-details {
-    width: 100%;
+    width: calc(100% - 32px); /* Account for left padding */
+    transform: translateY(20px);
+  }
+
+  .metro-details.active {
+    transform: translateY(0);
+  }
+
+  .metro-stop {
+    position: absolute;
+    left: 20px; /* Align with vertical line */
   }
 }
 
