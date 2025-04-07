@@ -89,36 +89,37 @@
 }
 
 /* Line column: holds all stop rows */
-
 .metro-line-vertical {
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 5rem;
-  padding-left: 90px; /* gives more breathing room on desktop */
   padding-top: 4rem;
   width: 100%;
 }
 
-/* Draw vertical line behind stop balls only */
+/* Draw vertical line behind stop balls */
 .metro-line-vertical::before {
   content: "";
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 100px; /* centers behind the stop balls (see note below) */
+  left: 20px; /* Align with stop dots (24px width + 4px border on each side) */
   width: 12px;
   background-color: #888;
   z-index: 0;
   border-radius: 3px;
-  
 }
 
 /* Each stop + its info */
 .metro-stop-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   position: relative;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+  gap: 2rem;
 }
 
 /* Stop ball */
@@ -137,19 +138,18 @@
 
 /* Animate in */
 .metro-stop.active {
-  background-color: inherit;
   opacity: 1;
   transform: scale(1.2);
+  background-color: inherit;
 }
 
 /* Detail box */
 .metro-details {
-  margin-left: 2rem;
+  flex: 1;
   background-color: white;
   padding: 1rem 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  max-width: 800px;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.4s ease;
@@ -160,6 +160,28 @@
   transform: translateY(0);
 }
 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .metro-line-vertical {
+    gap: 3rem;
+  }
+
+  .metro-line-vertical::before {
+    left: 50%; /* Center line on mobile */
+    transform: translateX(-50%);
+  }
+
+  .metro-stop-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .metro-details {
+    width: 100%;
+  }
+}
 
 /* Colors */
 .red-line::before,

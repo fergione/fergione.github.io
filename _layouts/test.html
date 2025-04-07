@@ -1,9 +1,83 @@
 
 <body class="{{ page.class }}"></body>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/iresume.css' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/metro-parallax.css' | relative_url }}">
+    <style>
+        body {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .metro-header {
+            font-size: clamp(24px, 5vw, 48px);
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .metro-subhead {
+            font-size: clamp(16px, 3vw, 24px);
+        }
+
+        .metro-map-vertical {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .metro-stop-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .metro-details {
+            flex: 1;
+        }
+
+        @media (max-width: 768px) {
+            .metro-stop-row {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .metro-details h3 {
+                font-size: clamp(18px, 4vw, 24px);
+            }
+
+            .metro-details h4 {
+                font-size: clamp(16px, 3vw, 20px);
+            }
+
+            .metro-details p {
+                font-size: clamp(14px, 2.5vw, 16px);
+            }
+        }
+
+        .resume-section {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .toggle-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: clamp(16px, 3vw, 20px);
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .toggle-content {
+            padding: 15px;
+            font-size: clamp(14px, 2.5vw, 16px);
+        }
+    </style>
 </head>
 
 <!-- Script for Button Functionality -->
@@ -21,34 +95,57 @@
 <script>
   function animateMetroStopsWithProgress() {
     const metroMaps = document.querySelectorAll('.metro-map-vertical');
-
-    metroMaps.forEach(map => {
-      const stopRows = map.querySelectorAll('.metro-stop-row');
-      const mapTop = map.getBoundingClientRect().top;
-      const mapHeight = map.offsetHeight;
-      const windowHeight = window.innerHeight;
-
-      // How far the user has scrolled *through* this section (0 to 1)
-      const scrollProgress = Math.min(
-        Math.max((windowHeight - mapTop) / (windowHeight + mapHeight), 0),
-        1
-      );
-
-      stopRows.forEach((row, index) => {
-        const stop = row.querySelector('.metro-stop');
-        const revealPoint = index / stopRows.length; // how far down this stop is
-
-        if (scrollProgress > revealPoint) {
-          stop.classList.add('active');
-        } else {
-          stop.classList.remove('active');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const stopRows = entry.target.querySelectorAll('.metro-stop-row');
+          stopRows.forEach((row, index) => {
+            const stop = row.querySelector('.metro-stop');
+            const details = row.querySelector('.metro-details');
+            
+            // Reset animations if needed
+            stop.classList.remove('active');
+            if (details) {
+              details.style.opacity = '0';
+              details.style.transform = 'translateY(20px)';
+            }
+            
+            // Trigger animations with delay
+            setTimeout(() => {
+              stop.classList.add('active');
+              if (details) {
+                details.style.opacity = '1';
+                details.style.transform = 'translateY(0)';
+              }
+            }, index * 200);
+          });
         }
       });
+    }, {
+      threshold: 0.1, // Trigger earlier
+      rootMargin: '50px 0px -10% 0px' // Adjust trigger area
     });
+
+    metroMaps.forEach(map => observer.observe(map));
   }
 
-  window.addEventListener('scroll', animateMetroStopsWithProgress);
+  // Initialize on load and handle resize events
   window.addEventListener('load', animateMetroStopsWithProgress);
+  
+  // Debounced resize handler
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      // Remove all active classes
+      document.querySelectorAll('.metro-stop').forEach(stop => {
+        stop.classList.remove('active');
+      });
+      // Reinitialize animations
+      animateMetroStopsWithProgress();
+    }, 250);
+  });
 </script>
   
 
