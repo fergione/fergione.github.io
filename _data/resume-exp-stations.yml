@@ -1,0 +1,33 @@
+- company: Northrop Grumman
+  title: Digital Engineer II
+  date: null
+  description: |
+    • Built from the ground up the ESD physical verification flow using Calibre PERC software, implementing the
+      proper input scripts and working through results documentation to allow other engineers and teams to check
+      their design for electrostatic discharge potential.
+    • Implemented new flow scripts and programs to upgrade the capability of Northrop Grumman’s physical
+      design team and enable the implementation of ASIC chips in Intel’s new 18A process.
+    • Used knowledge of common algorithms and coding best practices to improve the design flow speed by 23
+      percent and increase design turnaround.
+    • Owned the engineering flow process for the top-level design of an 18A test chip, and efficiently
+      communicated with the architecture team, digital design team, and outside vendors to ensure final delivery of
+      the chip design to the foundry on an accelerated timeline.
+
+- company: Intel
+  title: Graduate Intern Technical
+  date: null
+  description: |
+    • Created a custom test case structure using Python and TCL/TK to generate the necessary structure to test
+      various hardware parts to demonstrate their functionality.
+    • Custom scripts to automatically implement design procedures in the VLSI Physical Design Flow,
+      inter-operating with various software platforms from multiple vendors.
+    • Created a simple dashboard using Excel and SharePoint to share test results within Intel organizations
+      effectively.
+
+- company: Apex Semiconductors USA
+  title: Materials Scientist
+  date: null
+  description: |
+    • Designed custom software to operate machines that served as part of the failure analysis process, improving
+      analysis throughput.
+    • Created Python scripts and used HSPICE simulations to confirm circuit operation and analyze performance.

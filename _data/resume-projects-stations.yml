@@ -1,0 +1,20 @@
+- project: C++ Simulator of Processor Cache
+  skills: C++
+  date: 2021 - 2023
+  description: |
+    • Implemented a C++ simulator of a processor memory L1 cache with various configurable settings to
+    dynamically test various cache configurations and computer instructions.
+
+- project: C++ Simulator of Processor Implementing Tomasulo's Algorithm
+  skills: C++
+  date: 2021 - 2023
+  description: |
+    • Designed and built a simulator of a computer processor in C++ using Tomasulo’s Algorithm for Out of Order
+    Execution of computer instructions which dynamically processed assembly code.
+
+- project: Frontend Reimplementation of Active Website in React
+  skills: Ruby, React, Webdev
+  date: 2021 - 2023
+  description: |
+    •  Worked in a team to reimplement the questionnaire frontend for an active website moving from
+    Ruby-on-Rails to React. Employed test-driven development to properly build flexible tests.
