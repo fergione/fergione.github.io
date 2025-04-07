@@ -2,6 +2,13 @@
   CSS Styling for Metro Rail Resume 
   */
   
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
   body {
     margin: 0;
     font-family: 'Helvetica Neue', sans-serif;
@@ -114,7 +121,9 @@
   display: none; /* Hidden by default */
   background-color: #f1f1f1;
   padding: 2rem 1rem;
-  margin: 0 auto;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .metro-line-mobile {
@@ -167,6 +176,21 @@
   
   .metro-map-mobile {
     display: block; /* Show mobile version */
+    width: 100vw; /* Full viewport width */
+    margin: 0;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+  }
+
+  .metro-line-mobile {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .metro-details-mobile {
+    width: 100%;
+    box-sizing: border-box;
+    margin-right: 0;
   }
 }
 
