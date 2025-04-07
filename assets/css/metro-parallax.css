@@ -132,15 +132,14 @@
   z-index: 1;
   flex-shrink: 0;
   opacity: 0;
-  transform: scale(0.5);
-  transition: all 0.4s ease;
+  transform: scale(0);
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 /* Animate in */
 .metro-stop.active {
   opacity: 1;
-  transform: scale(1.2);
-  background-color: inherit;
+  transform: scale(1);
 }
 
 /* Detail box */
@@ -152,10 +151,10 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   opacity: 0;
   transform: translateY(20px);
-  transition: all 0.4s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.metro-stop.active + .metro-details {
+.metro-details.active {
   opacity: 1;
   transform: translateY(0);
 }
@@ -210,3 +209,5 @@
   font-size: 0.95rem;
   color: #333;
 }
+
+/* Remove the keyframes as they're no longer needed */
