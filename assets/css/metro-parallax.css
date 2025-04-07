@@ -81,7 +81,7 @@
 /* Outer container */
 .metro-map-vertical {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* Changed from center to flex-start */
   padding: 4rem 2rem;
   background-color: #f1f1f1;
   max-width: 1200px;
@@ -104,7 +104,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 32px; /* Align with stop dots */
+  left: 32px;
   width: 12px;
   background-color: #888;
   z-index: 0;
@@ -114,10 +114,9 @@
 /* Each stop + its info */
 .metro-stop-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
   width: 100%;
-  max-width: 1200px;
   padding: 0 20px;
   gap: 2rem;
 }
@@ -162,35 +161,38 @@
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
+  .metro-map-vertical {
+    padding: 4rem 0; /* Reduce padding on mobile */
+  }
+
   .metro-line-vertical {
     gap: 3rem;
   }
 
   .metro-line-vertical::before {
-    left: 32px; /* Keep same alignment as desktop */
-    transform: none; /* Remove centering transform */
+    left: 32px; /* Keep line aligned with dots */
   }
 
   .metro-stop-row {
     flex-direction: column;
-    align-items: flex-start; /* Align items to the left */
-    text-align: left;
-    gap: 1rem;
-    padding-left: 52px; /* Add padding to account for line and stop */
+    padding: 0;
+    margin-left: 20px; /* Add margin instead of padding */
+  }
+
+  .metro-stop {
+    margin-left: 0; /* Reset margin */
+    position: relative; /* Change from absolute to relative */
+    left: 0; /* Reset left position */
   }
 
   .metro-details {
-    width: calc(100% - 32px); /* Account for left padding */
-    transform: translateY(20px);
+    width: calc(100% - 76px); /* Adjust width to account for line and spacing */
+    margin-left: 44px; /* Move details right to align with line */
+    transform: translateY(20px); /* Change animation direction for mobile */
   }
 
   .metro-details.active {
     transform: translateY(0);
-  }
-
-  .metro-stop {
-    position: absolute;
-    left: 20px; /* Align with vertical line */
   }
 }
 
