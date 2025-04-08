@@ -422,4 +422,30 @@
 
     // Close popup when clicking overlay
     document.getElementById('overlay').addEventListener('click', closeContactPopup);
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all sections
+        const sections = document.querySelectorAll('.resume-section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        // Create an Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Get the id of the current section
+                    const id = entry.target.getAttribute('id');
+                    // Update navigation links
+                    navLinks.forEach(link => {
+                        link.style.opacity = link.getAttribute('href') === `#${id}` ? '1' : '0.7';
+                    });
+                }
+            });
+        }, {
+            threshold: 0.5,
+            rootMargin: '-50% 0px -50% 0px'
+        });
+        
+        // Observe all sections
+        sections.forEach(section => observer.observe(section));
+    });
 </script>

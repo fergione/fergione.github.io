@@ -18,12 +18,99 @@
     scroll-behavior: smooth;
   }
 
-  /* Header styles */
+  /* Fixed header styles */
   .metro-header {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #231f20;
+    color: #ffffff;
+    padding: 1rem;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  /* Add padding to body to account for fixed header */
+  body {
+    padding-top: 0; /* Remove top padding since we're using margin on first section */
+    margin: 0;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #231f20;
+    scroll-behavior: smooth;
+  }
+
+  .header-content {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  /* Navigation styles matching footer */
+  .metro-nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 0.5rem 0;
+  }
+
+  .nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+  }
+
+  /* Remove previous hover styles */
+  .nav-link.red:hover,
+  .nav-link.blue:hover,
+  .nav-link.orange:hover,
+  .nav-link.green:hover,
+  .nav-link.yellow:hover {
+    background-color: transparent;
+  }
+
+  /* New hover effect matching footer */
+  .nav-link:hover {
+    color: #bbbbbb;
+  }
+
+  /* Add underline effect */
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: #bbbbbb;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* Active state for current section */
+  .nav-link.active {
+    color: #bbbbbb;
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  /* Smooth scrolling for the whole page */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Add some padding to section scroll targets to account for fixed header */
+  .resume-section {
+    scroll-margin-top: 140px; /* Increase this value to ensure sections scroll below header */
   }
 
   /* Metro line colors */
@@ -297,3 +384,39 @@
 }
 
 /* Remove the keyframes as they're no longer needed */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .metro-nav {
+    gap: 1rem;
+  }
+  
+  .nav-link {
+    font-size: 0.9rem;
+  }
+  
+  body {
+    padding-top: 100px; /* Smaller padding for mobile */
+  }
+}
+
+/* Add margin to first station section */
+.resume-section:first-of-type {
+    margin-top: 120px; /* Adjust this value based on your header height */
+}
+
+/* Adjust scroll-margin-top for all sections to account for header */
+.resume-section {
+    scroll-margin-top: 140px; /* Increase this value to ensure sections scroll below header */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .resume-section:first-of-type {
+        margin-top: 100px; /* Smaller margin for mobile */
+    }
+    
+    .resume-section {
+        scroll-margin-top: 120px; /* Adjust for mobile */
+    }
+}
