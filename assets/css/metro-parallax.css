@@ -127,6 +127,7 @@
   flex-direction: column;
   gap: 5rem;
   padding-top: 4rem;
+  padding-left: 15px; /* Add padding to match the line position */
   width: 100%;
 }
 

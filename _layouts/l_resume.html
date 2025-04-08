@@ -29,17 +29,56 @@
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
+            background-color: #f5f5f5;
+            padding: 40px 20px;
         }
 
         .metro-stop-row {
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Changed from center to align with top of text box */
             gap: 20px;
             padding: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .metro-stop-row.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .metro-details {
             flex: 1;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+        }
+
+        /* Style the text within metro-details */
+        .metro-details h3 {
+            margin: 0 0 8px 0;
+            color: #231f20;
+        }
+
+        .metro-details h4 {
+            margin: 0 0 12px 0;
+            color: #666;
+        }
+
+        .metro-details p {
+            margin: 0;
+            color: #444;
+            line-height: 1.5;
+        }
+
+        /* Add hover effect to the boxes */
+        .metro-details:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
         }
 
         @media (max-width: 768px) {
@@ -234,6 +273,51 @@
                 gap: 1rem;
             }
         }
+
+        .metro-stop {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            border: 2px solid black;
+            background-color: white;
+            border-radius: 50%;
+            z-index: 1;
+            flex-shrink: 0;
+        }
+
+        .metro-stop::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border: 2px solid black;
+            border-radius: 50%;
+        }
+
+        /* Line colors - only color the line, not the stops */
+        .red-line::before {
+            background-color: #E51636;
+        }
+
+        .blue-line::before {
+            background-color: #009CDE;
+        }
+
+        .orange-line::before {
+            background-color: #F7931D;
+        }
+
+        .green-line::before {
+            background-color: #00B140;
+        }
+
+        .yellow-line::before {
+            background-color: #FFD100;
+        }
     </style>
 </head>
 
@@ -256,28 +340,14 @@
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const stop = entry.target.querySelector('.metro-stop');
-          const details = entry.target.querySelector('.metro-details');
-          
-          // Add active class immediately when in view
-          stop.classList.add('active');
-          if (details) {
-            details.classList.add('active');
-          }
+          entry.target.classList.add('active');
         } else {
-          // Remove active class immediately when out of view
-          const stop = entry.target.querySelector('.metro-stop');
-          const details = entry.target.querySelector('.metro-details');
-          
-          stop.classList.remove('active');
-          if (details) {
-            details.classList.remove('active');
-          }
+          entry.target.classList.remove('active');
         }
       });
     }, {
-      threshold: 1.0, // Only trigger when element is fully in view
-      rootMargin: '0px' // No margin adjustment
+      threshold: 0.5,
+      rootMargin: '-50px'
     });
 
     metroMaps.forEach(map => {

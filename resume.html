@@ -33,7 +33,7 @@ class: resume
         <div class="metro-details">
           <h3>{{ stop.company }}</h3>
           <h4>{{ stop.title }}</h4>
-          <p> {{ stop.description }} </p>
+          <p>{{ stop.description }}</p>
         </div>
       </div>
       {% endfor %}
@@ -58,7 +58,7 @@ class: resume
 
         {% for stop in site.data.resume-edu-stations %}
         <div class="metro-stop-row">
-          <div class="metro-stop"></div>
+          <div class="metro-stop transfer"></div>
           <div class="metro-details">
             <h3>{{ stop.level }}</h3>
             <h4>{{ stop.degree }}</h4>
@@ -81,7 +81,22 @@ class: resume
   </section>
 
   <!-- Parallax -->
-  <section class="parallax" style="background-image: url('/assets/images/metro-station.jpg');"></section>
+  <section class="metro-map-vertical">
+    <div class="metro-line-vertical orange-line">
+
+        {% for stop in site.data.resume-projects-stations %}
+        <div class="metro-stop-row">
+          <div class="metro-stop transfer"></div>
+          <div class="metro-details">
+            <h3>{{ stop.project }}</h3>
+            <h4>{{ stop.skills }}</h4>
+            <p> {{ stop.description }} </p>
+          </div>
+        </div>
+        {% endfor %}
+
+    </div>
+  </section>
 
   <!-- Station 4 -->
   <section class="resume-section station-section green" id="projects">
@@ -95,11 +110,11 @@ class: resume
 
   <!-- Final Parallax -->
   <section class="metro-map-vertical">
-    <div class="metro-line-vertical blue-line">
+    <div class="metro-line-vertical green-line">
 
         {% for stop in site.data.resume-projects-stations %}
         <div class="metro-stop-row">
-          <div class="metro-stop"></div>
+          <div class="metro-stop transfer"></div>
           <div class="metro-details">
             <h3>{{ stop.project }}</h3>
             <h4>{{ stop.skills }}</h4>
