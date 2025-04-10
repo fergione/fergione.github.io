@@ -20,7 +20,7 @@ const NavigationButtons = ({ isVisible }) => {
 
   return (
     <div className="flex justify-center items-center min-h-screen px-6">
-      <div className="flex flex-wrap flex-row">
+      <div className="flex flex-wrap flex-row gap-10">
         {buttons.map((button, i) => (
           <motion.div
             key={button.id}
@@ -36,7 +36,7 @@ const NavigationButtons = ({ isVisible }) => {
               className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-20"
             />
           </motion.div>
-        ))}
+        ))} 
       </div>
     </div>
   );

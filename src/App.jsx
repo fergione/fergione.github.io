@@ -14,7 +14,7 @@ function App() {
     const timer = setTimeout(() => {
       setIsLoading(false);
       setShowPanel(true);
-    }, 3000);
+    }, 8000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -24,21 +24,20 @@ function App() {
   };
 
   return (
-    <main className="relative min-h-screen w-full overflow-hidden bg-slate-900">
-      <AnimatePresence>
+    <div className="relative min-h-screen w-full overflow-hidden">
+      <VideoBackground />
+      
+      <AnimatePresence mode="wait">
         {isLoading && <LoadingScreen />}
       </AnimatePresence>
-
-      <VideoBackground />
 
       <div className="relative z-10">
         {showPanel && (
           <AnimationPanel onAnimationComplete={handlePanelAnimationComplete} />
         )}
-
-        <NavigationButtons isVisible={showButtons} />
+        {showButtons && <NavigationButtons isVisible={showButtons} />}
       </div>
-    </main>
+    </div>
   );
 }
 
