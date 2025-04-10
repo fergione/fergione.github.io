@@ -5,7 +5,7 @@ const LoadingScreen = () => {
   const [imageError, setImageError] = useState(false);
 
   const spinTransition = {
-    duration: 10, // Increased from 2 to 4 seconds
+    duration: 5, // Increased from 2 to 4 seconds
     times: [0, 0.2, 0.5, 0.8, 1],
     repeat: Infinity,
     repeatDelay: 5, // Reduced from 2 to 1 second pause between animations
