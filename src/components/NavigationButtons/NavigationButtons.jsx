@@ -19,7 +19,7 @@ const NavigationButtons = ({ isVisible }) => {
   ];
 
   return (
-    <div className="flex justify-center items-center min-h-screen px-6">
+    <div className="absolute top-[50vh] left-0 right-0 flex justify-center items-center px-6">
       <div className="flex flex-wrap flex-row gap-10">
         {buttons.map((button, i) => (
           <motion.div

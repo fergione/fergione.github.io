@@ -14,7 +14,7 @@ function App() {
     const timer = setTimeout(() => {
       setIsLoading(false);
       setShowPanel(true);
-    }, 8000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);

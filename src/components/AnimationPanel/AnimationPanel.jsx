@@ -16,6 +16,13 @@ const AnimationPanel = ({ onAnimationComplete }) => {
     })
   };
 
+  const navLinks = [
+    { title: 'Family Tree', href: '/family-tree' },
+    { title: 'Family Pages', href: '/family-pages' },
+    { title: 'Photo Gallery', href: '/gallery' },
+    { title: 'Contact', href: '/contact' },
+  ];
+
   return (
     <motion.div
       initial={{ scale: 0, opacity: 0 }}
@@ -28,30 +35,62 @@ const AnimationPanel = ({ onAnimationComplete }) => {
         damping: 20
       }}
       onAnimationComplete={onAnimationComplete}
-      className="absolute top-[10vh] left-1/2 -translate-x-1/2 z-10"
+      className="fixed top-0 left-0 right-0 z-10 bg-black/20 backdrop-blur-sm"
     >
-      <div className="bg-black/30 backdrop-blur-lg px-16 py-12 rounded-2xl 
-                    border border-white/10 shadow-2xl
-                    hover:border-gold-500/30 transition-all duration-500
-                    hover:shadow-gold-500/20 hover:shadow-xl">
-        <h1 className="relative leading-[1.2]">
-          {text.split("").map((char, index) => (
-            <motion.span
-              key={index}
-              custom={index}
-              variants={letterVariants}
-              initial="hidden"
-              animate="visible"
-              className="inline-block font-serif text-6xl md:text-7xl lg:text-8xl font-bold
-                       bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-200 
-                       bg-clip-text text-transparent
-                       drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)]"
-              style={{ fontFamily: "'Playfair Display', serif" }}
-            >
-              {char === " " ? "\u00A0" : char}
-            </motion.span>
-          ))}
-        </h1>
+      <div className="container mx-auto px-6 py-4">
+        <div className="flex flex-col md:flex-row items-center justify-between">
+          <h1 className="text-center mb-4 md:mb-0">
+            {text.split("").map((char, index) => (
+              <motion.span
+                key={index}
+                custom={index}
+                variants={letterVariants}
+                initial="hidden"
+                animate="visible"
+                className="inline-block text-3xl md:text-4xl
+                         text-white/90
+                         tracking-wider"
+                style={{ 
+                  fontFamily: "'Playfair Display', serif",
+                  fontWeight: 300,
+                  letterSpacing: '0.1em'
+                }}
+              >
+                {char === " " ? "\u00A0" : char}
+              </motion.span>
+            ))}
+          </h1>
+
+          <nav>
+            <ul className="flex flex-wrap justify-center gap-6 md:gap-8">
+              {navLinks.map((link, index) => (
+                <motion.li
+                  key={link.title}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    delay: 2.5 + (index * 0.1),
+                    duration: 0.5,
+                    ease: "easeOut"
+                  }}
+                >
+                  <a
+                    href={link.href}
+                    className="text-white/80 hover:text-white
+                             text-sm md:text-base
+                             tracking-wide uppercase
+                             transition-colors duration-300
+                             border-b-2 border-transparent
+                             hover:border-white/30"
+                    style={{ fontFamily: "'Playfair Display', serif" }}
+                  >
+                    {link.title}
+                  </a>
+                </motion.li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </div>
     </motion.div>
   );
