@@ -36,7 +36,7 @@ const LoadingScreen = () => {
             <div className="text-white text-sm">Image not found</div>
           ) : (
             <img 
-              src="src/assets/fergione_symbol.png" 
+              src="/assets/fergione_symbol.png" 
               alt="Fergione Symbol"
               className="w-full h-full object-cover"
               onError={handleImageError}
