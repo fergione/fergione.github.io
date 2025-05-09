@@ -14,10 +14,10 @@ const NavigationButtons = ({ isVisible }) => {
   };
 
   const buttons = [
-    { id: 1, label: 'Angelo', image: 'src/assets/angelo.png' },
-    { id: 2, label: 'Jacqui', image: 'src/assets/jacqui.png' },
-    { id: 3, label: 'The Fergs', image: 'src/assets/fergs.png' },
-    { id: 4, label: 'Bagoombas', image: 'src/assets/bagoombas.png' },
+    { id: 1, label: 'Angelo', image: '/assets/angelo.png' },
+    { id: 2, label: 'Jacqui', image: '/assets/jacqui.png' },
+    { id: 3, label: 'The Fergs', image: '/assets/fergs.png' },
+    { id: 4, label: 'Bagoombas', image: '/assets/bagoombas.png' },
   ];
 
   return (
