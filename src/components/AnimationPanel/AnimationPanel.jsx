@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const AnimationPanel = ({ onAnimationComplete }) => {
   const text = "Casa Fergione";
@@ -17,8 +18,9 @@ const AnimationPanel = ({ onAnimationComplete }) => {
   };
 
   const navLinks = [
-    { title: 'Family Tree', href: '/family-tree' },
+    { title: 'Home', href: '/' },
     { title: 'Family Pages', href: '/family-pages' },
+    { title: 'Family Tree', href: '/family-tree' },
     { title: 'Photo Gallery', href: '/gallery' },
     { title: 'Contact', href: '/contact' },
   ];
@@ -74,18 +76,18 @@ const AnimationPanel = ({ onAnimationComplete }) => {
                     ease: "easeOut"
                   }}
                 >
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href} // ✅ Use `to` instead of `href`
                     className="text-white/80 hover:text-white
-                             text-sm md:text-base
-                             tracking-wide uppercase
-                             transition-colors duration-300
-                             border-b-2 border-transparent
-                             hover:border-white/30"
+                            text-sm md:text-base
+                            tracking-wide uppercase
+                            transition-colors duration-300
+                            border-b-2 border-transparent
+                            hover:border-white/30"
                     style={{ fontFamily: "'Playfair Display', serif" }}
                   >
                     {link.title}
-                  </a>
+                  </Link>
                 </motion.li>
               ))}
             </ul>
