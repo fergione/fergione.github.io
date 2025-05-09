@@ -1,43 +1,30 @@
-import { useState, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
-import LoadingScreen from './components/LoadingScreen/LoadingScreen';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom';
+
 import VideoBackground from './components/VideoBackground/VideoBackground';
 import AnimationPanel from './components/AnimationPanel/AnimationPanel';
-import NavigationButtons from './components/NavigationButtons/NavigationButtons';
+import FamilyPages from './pages/FamilyPages/FamilyPages';
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [showPanel, setShowPanel] = useState(false);
-  const [showButtons, setShowButtons] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-      setShowPanel(true);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handlePanelAnimationComplete = () => {
-    setShowButtons(true);
-  };
-
   return (
-    <div className="relative min-h-screen w-full overflow-hidden">
-      <VideoBackground />
-      
-      <AnimatePresence mode="wait">
-        {isLoading && <LoadingScreen />}
-      </AnimatePresence>
-
-      <div className="relative z-10">
-        {showPanel && (
-          <AnimationPanel onAnimationComplete={handlePanelAnimationComplete} />
-        )}
-        {showButtons && <NavigationButtons isVisible={showButtons} />}
+    <Router>
+      <div className="relative min-h-screen w-full overflow-hidden">
+        <VideoBackground />
+        <div className="relative z-10">
+          <AnimationPanel />
+        </div>
+        <Routes>
+          <Route path="/" element={<div />} />
+          <Route path="/family-pages" element={<FamilyPages />} />
+          <Route path="/family-tree" element={<div>Family Tree Page</div>} />
+          <Route path="/gallery" element={<div>Photo Gallery Page</div>} />
+          <Route path="/contact" element={<div>Contact Page</div>} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 
